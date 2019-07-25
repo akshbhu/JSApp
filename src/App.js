@@ -2,25 +2,40 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Amplify, { Storage } from 'aws-amplify';
+import { withAuthenticator } from 'aws-amplify-react';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+
+class App extends React.Component {
+  onChange(e) {
+    
+      const file = e.target.files[0];
+      Storage.put('Z/abc.png', file, {
+        level: 'public',
+
+      })
+      .then (result => console.log(result))
+      .catch(err => console.log(err));
+      
+      /*
+      Storage.list('')
+    .then(result => console.log(result))
+    .catch(err => console.log(err));
+    */
+    
+    
+    
+  }
+
+  render() {
+      return (
+          <input
+              type="file" 
+              onChange={(e) => this.onChange(e)}
+          />
+      )
+  }
 }
 
-export default App;
+export default withAuthenticator(App)

@@ -1,0 +1,14 @@
+{
+	"auth": {
+		"myapp95de3301": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	},
+	"storage": {
+		"s3b91d526a": {
+			"service": "S3",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}
